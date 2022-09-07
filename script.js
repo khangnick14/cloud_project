@@ -148,21 +148,28 @@ myFormUpdate.addEventListener("submit", (e) => {
   console.log(pid_update.value);
   console.log(vaccine_update.value);
   console.log(date_update.value);
-  fetch(api, {
-    method: "PATCH",
-    body: JSON.stringify({
-      sid: parseInt(sid_update.value),
-      pid: parseInt(pid_update.value),
-      vaccine: vaccine_update.value,
-      date: date_update.value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      readVaccine(API, "Items");
-      updateModal.close();
-    });
+  updateVaccine(
+    api,
+    sid_update.value,
+    pid_update.value,
+    vaccine_update.value,
+    date_update.value
+  );
+  // fetch(api, {
+  //   method: "PATCH",
+  //   body: JSON.stringify({
+  //     sid: parseInt(sid_update.value),
+  //     pid: parseInt(pid_update.value),
+  //     vaccine: vaccine_update.value,
+  //     date: date_update.value,
+  //   }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //     readVaccine(API, "Items");
+  //     updateModal.close();
+  //   });
 });
 
 function openUpdateForm(sid) {
@@ -171,10 +178,7 @@ function openUpdateForm(sid) {
   sid_update.value = sid;
 }
 
-function updateVaccine(sid, pid, vaccine, date) {
-  console.log(sid);
-  let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsUpdate`;
-  console.log(api);
+function updateVaccine(api, sid, pid, vaccine, date) {
   fetch(api, {
     method: "PATCH",
     body: JSON.stringify({
@@ -188,6 +192,7 @@ function updateVaccine(sid, pid, vaccine, date) {
     .then((data) => {
       console.log(data);
       readVaccine(API, "Items");
+      updateModal.close();
     });
 }
 

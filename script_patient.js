@@ -24,9 +24,9 @@ function readPatient(api, name) {
       <td>${value.age}</td>
        <th>
        <div class='d-flex justify-content-center'>
-      <button type='button' onclick='openDeleteForm(${value.sid});' value='${value.sid}'' 
+      <button type='button' onclick='openDeleteForm(${value.pid});' value='${value.sid}'' 
       class='btn btn-danger btn-block m-3' id='deleteBtn'>Delete</button>
-      <button type="button" onclick='openUpdateForm(${value.sid});' class="btn btn-secondary btn-md open-update-btn m-3">
+      <button type="button" onclick='openUpdateForm(${value.pid});' class="btn btn-secondary btn-md open-update-btn m-3">
         Update
       </button>
       </form>
@@ -42,7 +42,7 @@ function readPatient(api, name) {
 readPatient(API, "Items");
 
 const myFormPost = document.querySelector("#project-form-post");
-// const myFormUpdate = document.querySelector("#project-form-update");
+const myFormUpdate = document.querySelector("#project-form-update");
 
 const pid = document.querySelector("#pid");
 const shot = document.querySelector("#shot");
@@ -51,23 +51,24 @@ const patientName = document.querySelector("#name");
 const gender = document.querySelector("#gender");
 const age = document.querySelector("#age");
 
-// const sid_update = document.querySelector("#sid_update");
-// const pid_update = document.querySelector("#pid_update");
-// const vaccine_update = document.querySelector("#vaccine_update");
-// const date_update = document.querySelector("#date_update");
+const pid_update = document.querySelector("#pid_update");
+const shot_update = document.querySelector("#shot_update");
+const address_update = document.querySelector("#address_update");
+const patientName_update = document.querySelector("#name_update");
+const gender_update = document.querySelector("#gender_update");
+const age_update = document.querySelector("#age_update");
 
 const openModal = document.querySelector(".open-btn");
 const closeModal = document.querySelector(".close-btn");
 const modal = document.querySelector("#create-form");
 
-// const closeUpdateModal = document.querySelector(".close-update-btn");
-// const updateModal = document.querySelector("#update-form");
+const closeUpdateModal = document.querySelector(".close-update-btn");
+const updateModal = document.querySelector("#update-form");
 
-// const closeDeleteModal = document.querySelector(".close-delete-btn");
-// const deleteModal = document.querySelector("#delete-form");
-// const deleteBtn = document.querySelector("#delete-btn");
-// let sid_delete = 0;
-// //const updateModal = document.querySelector("#update-form")
+const closeDeleteModal = document.querySelector(".close-delete-btn");
+const deleteModal = document.querySelector("#delete-form");
+const deleteBtn = document.querySelector("#delete-btn");
+let pid_delete = 0;
 
 // //query sid form
 // const queryPidForm = document.querySelector("#pid-query-form");
@@ -85,13 +86,13 @@ closeModal.addEventListener("click", () => {
   modal.close();
 });
 
-// closeUpdateModal.addEventListener("click", () => {
-//   updateModal.close();
-// });
+closeUpdateModal.addEventListener("click", () => {
+  updateModal.close();
+});
 
-// closeDeleteModal.addEventListener("click", () => {
-//   deleteModal.close();
-// });
+closeDeleteModal.addEventListener("click", () => {
+  deleteModal.close();
+});
 
 myFormPost.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -130,82 +131,79 @@ myFormPost.addEventListener("submit", function (e) {
     });
 });
 deleteBtn.addEventListener("click", () => {
-  deleteVaccine(sid_delete);
+  deletePatient(pid_delete);
   deleteModal.close();
 });
 
-// function deleteVaccine(id) {
-//   console.log(id);
-//   let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsDelete/${id}`;
-//   console.log(api);
-//   fetch(api, {
-//     method: "DELETE",
-//     body: JSON.stringify({
-//       sid: parseInt(id),
-//     }),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log(data);
-//       readVaccine(API, "Items");
-//     });
-// }
+function deletePatient(id) {
+  console.log(id);
+  let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsDelete/${id}`;
+  console.log(api);
+  fetch(api, {
+    method: "DELETE",
+    body: JSON.stringify({
+      pid: parseInt(id),
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      readPatient(API, "Items");
+    });
+}
 
-// myFormUpdate.addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsUpdate`;
-//   console.log(api);
-//   console.log(sid_update.value);
-//   console.log(pid_update.value);
-//   console.log(vaccine_update.value);
-//   console.log(date_update.value);
-//   fetch(api, {
-//     method: "PATCH",
-//     body: JSON.stringify({
-//       sid: parseInt(sid_update.value),
-//       pid: parseInt(pid_update.value),
-//       vaccine: vaccine_update.value,
-//       date: date_update.value,
-//     }),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log(data);
-//       readVaccine(API, "Items");
-//       updateModal.close();
-//     });
-// });
+myFormUpdate.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsUpdate`;
+  console.log(api);
+  console.log(pid_update.value);
+  console.log(shot_update.value);
+  console.log(address_update.value);
+  console.log(patientName_update.value);
+  console.log(age_update.value);
+  console.log(gender_update.value);
+  updatePatient(
+    api,
+    pid_update.value,
+    shot_update.value,
+    address_update.value,
+    patientName_update.value,
+    gender_update.value,
+    age_update.value
+  );
+});
 
-// function openUpdateForm(sid) {
-//   updateModal.showModal();
-//   console.log(sid);
-//   sid_update.value = sid;
-// }
+function openUpdateForm(pid) {
+  updateModal.showModal();
+  console.log(pid);
+  pid_update.value = pid;
+}
 
-// function updateVaccine(sid, pid, vaccine, date) {
-//   console.log(sid);
-//   let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsUpdate`;
-//   console.log(api);
-//   fetch(api, {
-//     method: "PATCH",
-//     body: JSON.stringify({
-//       sid: parseInt(sid),
-//       pid: parseInt(pid),
-//       vaccine: vaccine,
-//       date: date,
-//     }),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log(data);
-//       readVaccine(API, "Items");
-//     });
-// }
+function updatePatient(api, pid, shot, address, name, gender, age) {
+  console.log(api);
+  fetch(api, {
+    method: "PATCH",
+    body: JSON.stringify({
+      pid: parseInt(pid),
+      shot: parseInt(shot),
+      address: address,
+      name: name,
+      gender: gender,
+      age: parseInt(age),
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      readPatient(API, "Items");
+      updateModal.close();
+    });
+}
 
-// function openDeleteForm(sid) {
-//   deleteModal.showModal();
-//   sid_delete = sid;
-// }
+function openDeleteForm(pid) {
+  deleteModal.showModal();
+  pid_delete = pid;
+}
 
 // queryPidForm.addEventListener("submit", (e) => {
 //   e.preventDefault();
