@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vaccine</title>
+    <title>Patient</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,7 +17,7 @@
     <!-- top nav -->
     <nav class="navbar navbar-expand-lg bg-light shadow-sm">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Vaccine Management</a>
+        <a class="navbar-brand" href="#">Patient Management</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -53,11 +53,11 @@
               Search
             </button>
           </form>
-          <form id="vaccine-query-form" class="d-flex" role="search">
+          <form id="patient-query-form" class="d-flex" role="search">
             <input
-              class="form-control me-2 vaccine-query-input"
+              class="form-control me-2 patient-query-input"
               type="search"
-              placeholder="Search vaccine name"
+              placeholder="Search patient name"
               aria-label="Search"
             />
             <button class="btn btn-outline-success" type="submit">
@@ -68,16 +68,16 @@
       </div>
     </nav>
     <br />
-    <h1 class="text-center">VACCINE TABLE</h1>
+    <h1 class="text-center">PATIENT TABLE</h1>
     <div class="container">
       <button type="button" class="btn btn-success btn-md open-btn m-3">
-        New Vaccine
+        New Patient
       </button>
       <!-- create modal -->
       <dialog class="create-form" id="create-form">
         <div class="d-flex justify-content-center create-form">
           <div class="col-md-5">
-            <h2 class="text-center">CREATE NEW VACCINE</h2>
+            <h2 class="text-center">CREATE NEW PATIENT</h2>
             <form
               id="project-form-post"
               class="form row g-3"
@@ -96,34 +96,55 @@
                 />
               </div>
               <div class="form-group col-md-6">
-                <label class="form-label" for="sid">sID</label>
+                <label class="form-label" for="sid">shot</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="sid"
+                  id="shot"
                   tabindex="1"
                   value=""
                   required
                 />
               </div>
               <div class="form-group col-md-6">
-                <label class="form-label" for="vaccine">Vaccine</label>
+                <label class="form-label" for="patient">address</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="vaccine"
+                  id="address"
                   tabindex="2"
                   value=""
                   required
                 />
               </div>
               <div class="form-group col-md-6">
-                <label class="form-label" for="date">Date</label>
+                <label class="form-label" for="date">name</label>
                 <input
-                  type="date"
+                  type="text"
                   class="form-control"
-                  id="date"
+                  id="name"
                   tabindex="3"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label class="form-label" for="date">gender</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="gender"
+                  tabindex="4"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label class="form-label" for="date">age</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="age"
+                  tabindex="5"
+                  required
                 />
               </div>
               <div class="col-md-12 text-center" id="buttonFields">
@@ -141,9 +162,11 @@
         <thead class="table-primary">
           <tr>
             <th scope="col">pid</th>
-            <th scope="col">sid</th>
-            <th scope="col">Vaccine</th>
-            <th scope="col">Date</th>
+            <th scope="col">shot</th>
+            <th scope="col">address</th>
+            <th scope="col">name</th>
+            <th scope="col">gender</th>
+            <th scope="col">age</th>
             <th class="col-md-2" scope="col">Action</th>
           </tr>
         </thead>
@@ -154,7 +177,7 @@
     <dialog class="update-form" id="update-form">
       <div class="d-flex justify-content-center">
         <div class="col-md-5">
-          <h2 class="text-center">UPDATE VACCINE</h2>
+          <h2 class="text-center">UPDATE PATIENT</h2>
           <form
             id="project-form-update"
             class="form row g-3"
@@ -169,13 +192,13 @@
                 id="pid_update"
                 tabindex="1"
                 value=""
-                required
+                readonly
               />
             </div>
             <div class="form-group col-md-6">
-              <label class="form-label" for="sid">sID</label>
+              <label class="form-label" for="sid">shot</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 id="sid_update"
                 tabindex="1"
@@ -184,23 +207,44 @@
               />
             </div>
             <div class="form-group col-md-6">
-              <label class="form-label" for="vaccine">Vaccine</label>
+              <label class="form-label" for="patient">address</label>
               <input
                 type="text"
                 class="form-control"
-                id="vaccine_update"
+                id="patient_update"
                 tabindex="2"
                 value=""
                 required
               />
             </div>
             <div class="form-group col-md-6">
-              <label class="form-label" for="date">Date</label>
+              <label class="form-label" for="date">name</label>
               <input
-                type="date"
+                type="text"
                 class="form-control"
                 id="date_update"
                 tabindex="3"
+                required
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label" for="date">gender</label>
+              <input
+                type="text"
+                class="form-control"
+                id="date_update"
+                tabindex="4"
+                required
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label" for="date">age</label>
+              <input
+                type="number"
+                class="form-control"
+                id="date_update"
+                tabindex="5"
+                required
               />
             </div>
             <div class="col-md-12 text-center" id="buttonFields">
@@ -231,6 +275,6 @@
         </div>
       </div>
     </dialog>
-    <script src="/script.js"></script>
+    <script src="/script_patient.js"></script>
   </body>
 </html>
