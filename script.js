@@ -155,21 +155,6 @@ myFormUpdate.addEventListener("submit", (e) => {
     vaccine_update.value,
     date_update.value
   );
-  // fetch(api, {
-  //   method: "PATCH",
-  //   body: JSON.stringify({
-  //     sid: parseInt(sid_update.value),
-  //     pid: parseInt(pid_update.value),
-  //     vaccine: vaccine_update.value,
-  //     date: date_update.value,
-  //   }),
-  // })
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     console.log(data);
-  //     readVaccine(API, "Items");
-  //     updateModal.close();
-  //   });
 });
 
 function openUpdateForm(sid) {

@@ -70,13 +70,23 @@ const deleteModal = document.querySelector("#delete-form");
 const deleteBtn = document.querySelector("#delete-btn");
 let pid_delete = 0;
 
-// //query sid form
-// const queryPidForm = document.querySelector("#pid-query-form");
-// const queryPidInput = document.querySelector(".pid-query-input");
+//query over age form
+const queryOverAgeForm = document.querySelector("#over-age-query-form");
+const queryOverAgeInput = document.querySelector(".over-age-query-input");
 
-// //query vaccine name form
-// const queryVaccineForm = document.querySelector("#vaccine-query-form");
-// const queryVaccineInput = document.querySelector(".vaccine-query-input");
+//query under shot form
+const queryUnderShotForm = document.querySelector("#under-shot-query-form");
+const queryUnderShotInput = document.querySelector(".under-shot-query-input");
+
+//query patient name form
+const queryPatientNameForm = document.querySelector("#patient-name-query-form");
+const queryPatientNameInput = document.querySelector(
+  ".patient-name-query-input"
+);
+
+//query patient id form
+const queryPatientIdForm = document.querySelector("#patient-id-query-form");
+const queryPatientIdInput = document.querySelector(".patient-id-query-input");
 
 openModal.addEventListener("click", () => {
   modal.showModal();
@@ -205,18 +215,57 @@ function openDeleteForm(pid) {
   pid_delete = pid;
 }
 
-// queryPidForm.addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   const pid = queryPidInput.value;
-//   console.log(pid);
-//   if (pid === "") {
-//     readVaccine(API, "Items");
-//   } else {
-//     let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsQueryPid/${pid}`;
-//     readVaccine(api, "shot");
-//   }
-//   queryPidInput.value = "";
-// });
+queryOverAgeForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const overAge = queryOverAgeInput.value;
+  console.log(overAge);
+  if (overAge === "") {
+    readPatient(API, "Items");
+  } else {
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientQueryOverAge/${overAge}`;
+    readPatient(api, "patients");
+  }
+  queryOverAgeInput.value = "";
+});
+
+queryUnderShotForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const underShot = queryUnderShotInput.value;
+  console.log(underShot);
+  if (underShot === "") {
+    readPatient(API, "Items");
+  } else {
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsQueryUnderShot/${underShot}`;
+    readPatient(api, "patient");
+  }
+  queryUnderShotInput.value = "";
+});
+
+queryPatientNameForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const patientName = queryPatientNameInput.value;
+  console.log(patientName);
+  if (patientName === "") {
+    readPatient(API, "Items");
+  } else {
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsQueryName/${patientName}`;
+    readPatient(api, "patients");
+  }
+  queryPatientNameInput.value = "";
+});
+
+queryPatientIdForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const patientId = queryPatientIdInput.value;
+  console.log(patientId);
+  if (patientId === "") {
+    readPatient(API, "Items");
+  } else {
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsGetById/${patientId}`;
+    readPatient(api, "Item");
+  }
+  queryPatientIdInput.value = "";
+});
 
 // queryVaccineForm.addEventListener("submit", (e) => {
 //   e.preventDefault();
