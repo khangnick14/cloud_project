@@ -17,11 +17,11 @@ function readPatient(api, name) {
       arr.map((value) => {
         tableData += `<tr>
       <td>${value.pid}</td>
-      <td>${value.shot}</td>
-      <td>${value.address}</td>
       <td>${value.name}</td>
-      <td>${value.gender}</td>
       <td>${value.age}</td>
+      <td>${value.gender}</td>
+      <td>${value.address}</td>
+      <td>${value.shot}</td>
        <th>
        <div class='d-flex justify-content-center'>
       <button type='button' onclick='openDeleteForm(${value.pid});' value='${value.sid}'' 
@@ -261,8 +261,8 @@ queryPatientIdForm.addEventListener("submit", (e) => {
   if (patientId === "") {
     readPatient(API, "Items");
   } else {
-    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsGetById/${patientId}`;
-    readPatient(api, "Item");
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsQueryId/${patientId}`;
+    readPatient(api, "patients");
   }
   queryPatientIdInput.value = "";
 });

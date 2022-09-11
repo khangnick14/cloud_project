@@ -16,8 +16,8 @@ function readVaccine(api, name) {
       let tableData = "";
       arr.map((value) => {
         tableData += `<tr>
-      <td>${value.pid}</td>
       <td>${value.sid}</td>
+      <td>${value.pid}</td>
       <td>${value.vaccine}</td>
       <td>${value.date}</td>
        <th>
