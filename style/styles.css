@@ -8,6 +8,14 @@ html {
   scroll-behavior: smooth;
 }
 
+.nav-link {
+  transition: all 0.3s ease 0s;
+}
+
+.nav-link:hover {
+  color: #0088a9;
+}
+
 .intro-container {
   background-color: #b0c6f6;
   padding-top: 6rem;
@@ -55,6 +63,7 @@ html {
   color: white;
   cursor: pointer;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .stats-container h2 {

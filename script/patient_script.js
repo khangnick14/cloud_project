@@ -41,6 +41,48 @@ function readPatient(api, name) {
 
 readPatient(API, "Items");
 
+function getById(api, name) {
+  switch (name) {
+    case "patients":
+      fetch(api)
+        .then((data) => {
+          return data.json();
+        })
+        .then((objectData) => {
+          console.log(objectData);
+          let item = objectData.Item;
+          if (
+            Object.keys(objectData).length === 0 &&
+            objectData.constructor === Object
+          ) {
+            document.getElementById("body").innerHTML = "";
+            return;
+          }
+          let tableData = "";
+          tableData += `<tr>
+          <td>${item.pid}</td>
+      <td>${item.name}</td>
+      <td>${item.age}</td>
+      <td>${item.gender}</td>
+      <td>${item.address}</td>
+      <td>${item.shot}</td>
+       <th>
+       <div class='d-flex justify-content-center'>
+      <button type='button' onclick='openDeleteForm(${item.pid});' value='${item.sid}'' 
+      class='btn btn-danger btn-block m-3' id='deleteBtn'>Delete</button>
+      <button type="button" onclick='openUpdateForm(${item.pid});' class="btn btn-secondary btn-md open-update-btn m-3">
+        Update
+      </button>
+      </form>
+       </div>
+     
+      </th>
+      </tr>`;
+          document.getElementById("body").innerHTML = tableData;
+        });
+  }
+}
+
 const myFormPost = document.querySelector("#project-form-post");
 const myFormUpdate = document.querySelector("#project-form-update");
 
@@ -261,21 +303,8 @@ queryPatientIdForm.addEventListener("submit", (e) => {
   if (patientId === "") {
     readPatient(API, "Items");
   } else {
-    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsQueryId/${patientId}`;
-    readPatient(api, "patients");
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsGetById/${patientId}`;
+    getById(api, "patients");
   }
   queryPatientIdInput.value = "";
 });
-
-// queryVaccineForm.addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   const vaccineName = queryVaccineInput.value;
-//   console.log(vaccineName);
-//   if (vaccineName === "") {
-//     readVaccine(API, "Items");
-//   } else {
-//     let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsQueryVaccine/${vaccineName}`;
-//     readVaccine(api, "patients");
-//   }
-//   queryVaccineInput.value = "";
-// });
