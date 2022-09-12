@@ -27,7 +27,6 @@ function readVaccine(api, name) {
       <button type="button" onclick='openUpdateForm(${value.sid});' class="btn btn-secondary btn-md open-update-btn m-3">
         Update
       </button>
-      </form>
        </div>
      
       </th>

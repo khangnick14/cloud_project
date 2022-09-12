@@ -16,7 +16,7 @@ function readPatient(api, name) {
       let tableData = "";
       arr.map((value) => {
         tableData += `<tr>
-      <td>${value.pid}</td>
+      <td><button class="btn btn-link" onclick='openVaccineTable(${value.pid});'>${value.pid}</button></td>
       <td>${value.name}</td>
       <td>${value.age}</td>
       <td>${value.gender}</td>
@@ -70,9 +70,16 @@ const deleteModal = document.querySelector("#delete-form");
 const deleteBtn = document.querySelector("#delete-btn");
 let pid_delete = 0;
 
+const closeVaccineTable = document.querySelector(".close-table-btn");
+const vaccineTableModal = document.querySelector("#history-vaccine-table");
+
 //query over age form
 const queryOverAgeForm = document.querySelector("#over-age-query-form");
 const queryOverAgeInput = document.querySelector(".over-age-query-input");
+
+//query under age form
+const queryUnderAgeForm = document.querySelector("#under-age-query-form");
+const queryUnderAgeInput = document.querySelector(".under-age-query-input");
 
 //query under shot form
 const queryUnderShotForm = document.querySelector("#under-shot-query-form");
@@ -102,6 +109,10 @@ closeUpdateModal.addEventListener("click", () => {
 
 closeDeleteModal.addEventListener("click", () => {
   deleteModal.close();
+});
+
+closeVaccineTable.addEventListener("click", () => {
+  vaccineTableModal.close();
 });
 
 myFormPost.addEventListener("submit", function (e) {
@@ -215,6 +226,38 @@ function openDeleteForm(pid) {
   pid_delete = pid;
 }
 
+function openVaccineTable(pid) {
+  vaccineTableModal.showModal();
+  fetchVaccineHistory(pid);
+}
+
+function fetchVaccineHistory(pid) {
+  let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsQueryPid/${pid}`;
+  fetch(api)
+    .then((data) => {
+      return data.json();
+    })
+    .then((objectData) => {
+      console.log(objectData);
+      let arr = objectData.shot;
+      console.log(arr);
+      //sort array of vaccine base on sid
+      arr.sort(function (a, b) {
+        return parseFloat(a.sid) - parseFloat(b.sid);
+      });
+      let tableData = "";
+      arr.map((value) => {
+        tableData += `<tr>
+      <td>${value.sid}</td>
+      <td>${value.pid}</td>
+      <td>${value.vaccine}</td>
+      <td>${value.date}</td>
+      </tr>`;
+      });
+      document.getElementById("body-table").innerHTML = tableData;
+    });
+}
+
 queryOverAgeForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const overAge = queryOverAgeInput.value;
@@ -226,6 +269,19 @@ queryOverAgeForm.addEventListener("submit", (e) => {
     readPatient(api, "patients");
   }
   queryOverAgeInput.value = "";
+});
+
+queryUnderAgeForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const underAge = queryUnderAgeInput.value;
+  console.log(underAge);
+  if (underAge === "") {
+    readPatient(API, "Items");
+  } else {
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/patientsQueryUnderAge/${underAge}`;
+    readPatient(api, "patients");
+  }
+  queryUnderAgeInput.value = "";
 });
 
 queryUnderShotForm.addEventListener("submit", (e) => {
