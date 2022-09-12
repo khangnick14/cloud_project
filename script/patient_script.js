@@ -41,48 +41,6 @@ function readPatient(api, name) {
 
 readPatient(API, "Items");
 
-function getById(api, name) {
-  switch (name) {
-    case "patients":
-      fetch(api)
-        .then((data) => {
-          return data.json();
-        })
-        .then((objectData) => {
-          console.log(objectData);
-          let item = objectData.Item;
-          if (
-            Object.keys(objectData).length === 0 &&
-            objectData.constructor === Object
-          ) {
-            document.getElementById("body").innerHTML = "";
-            return;
-          }
-          let tableData = "";
-          tableData += `<tr>
-          <td>${item.pid}</td>
-      <td>${item.name}</td>
-      <td>${item.age}</td>
-      <td>${item.gender}</td>
-      <td>${item.address}</td>
-      <td>${item.shot}</td>
-       <th>
-       <div class='d-flex justify-content-center'>
-      <button type='button' onclick='openDeleteForm(${item.pid});' value='${item.sid}'' 
-      class='btn btn-danger btn-block m-3' id='deleteBtn'>Delete</button>
-      <button type="button" onclick='openUpdateForm(${item.pid});' class="btn btn-secondary btn-md open-update-btn m-3">
-        Update
-      </button>
-      </form>
-       </div>
-     
-      </th>
-      </tr>`;
-          document.getElementById("body").innerHTML = tableData;
-        });
-  }
-}
-
 const myFormPost = document.querySelector("#project-form-post");
 const myFormUpdate = document.querySelector("#project-form-update");
 
@@ -295,6 +253,48 @@ queryPatientNameForm.addEventListener("submit", (e) => {
   }
   queryPatientNameInput.value = "";
 });
+
+function getById(api, name) {
+  switch (name) {
+    case "patients":
+      fetch(api)
+        .then((data) => {
+          return data.json();
+        })
+        .then((objectData) => {
+          console.log(objectData);
+          let item = objectData.Item;
+          if (
+            Object.keys(objectData).length === 0 &&
+            objectData.constructor === Object
+          ) {
+            document.getElementById("body").innerHTML = "";
+            return;
+          }
+          let tableData = "";
+          tableData += `<tr>
+          <td>${item.pid}</td>
+      <td>${item.name}</td>
+      <td>${item.age}</td>
+      <td>${item.gender}</td>
+      <td>${item.address}</td>
+      <td>${item.shot}</td>
+       <th>
+       <div class='d-flex justify-content-center'>
+      <button type='button' onclick='openDeleteForm(${item.pid});' value='${item.sid}'' 
+      class='btn btn-danger btn-block m-3' id='deleteBtn'>Delete</button>
+      <button type="button" onclick='openUpdateForm(${item.pid});' class="btn btn-secondary btn-md open-update-btn m-3">
+        Update
+      </button>
+      </form>
+       </div>
+     
+      </th>
+      </tr>`;
+          document.getElementById("body").innerHTML = tableData;
+        });
+  }
+}
 
 queryPatientIdForm.addEventListener("submit", (e) => {
   e.preventDefault();

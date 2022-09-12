@@ -52,33 +52,50 @@
     <br />
     <h1 class="text-center">VACCINE TABLE</h1>
     <div class="container">
-      <div class="d-flex justify-content-between my-4">
-        <button type="button" class="btn btn-success btn-md open-btn">
-          New Vaccine
-        </button>
-        <div class="d-flex">
-          <form id="pid-query-form" class="d-flex me-5" role="search">
-            <input
-              class="form-control pid-query-input"
-              type="search"
-              placeholder="Search patient id"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-          <form id="vaccine-query-form" class="d-flex" role="search">
-            <input
-              class="form-control vaccine-query-input"
-              type="search"
-              placeholder="Search vaccine name"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+      <div class="row">
+        <div class="col-3 mb-2">
+          <button type="button" class="btn btn-success btn-md open-btn">
+            New Vaccine
+          </button>
+        </div>
+        <div class="col-12 mb-2">
+          <div class="d-flex">
+            <form id="pid-query-form" class="d-flex me-5" role="search">
+              <input
+                class="form-control pid-query-input"
+                type="search"
+                placeholder="Search patient id"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+            <form id="vaccine-query-form" class="d-flex me-5" role="search">
+              <input
+                class="form-control vaccine-query-input"
+                type="search"
+                placeholder="Search vaccine name"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+            <span class="d-flex align-items-center me-2"
+              >Search shots after Date</span
+            >
+            <form id="date-query-form" class="d-flex" role="search">
+              <input
+                class="form-control date-query-input"
+                type="date"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 

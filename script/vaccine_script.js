@@ -73,6 +73,10 @@ const queryPidInput = document.querySelector(".pid-query-input");
 const queryVaccineForm = document.querySelector("#vaccine-query-form");
 const queryVaccineInput = document.querySelector(".vaccine-query-input");
 
+//query vaccine after date
+const queryDateForm = document.querySelector("#date-query-form");
+const queryDateInput = document.querySelector(".date-query-input");
+
 openModal.addEventListener("click", () => {
   modal.showModal();
 });
@@ -210,4 +214,17 @@ queryVaccineForm.addEventListener("submit", (e) => {
     readVaccine(api, "patients");
   }
   queryVaccineInput.value = "";
+});
+
+queryDateForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const shotDate = queryDateInput.value;
+  console.log(shotDate);
+  if (shotDate === "") {
+    readVaccine(API, "Items");
+  } else {
+    let api = `https://dgok582391.execute-api.ap-southeast-1.amazonaws.com/shotsQueryDate/${shotDate}`;
+    readVaccine(api, "shot");
+  }
+  queryDateInput.value = "";
 });
